@@ -1,0 +1,66 @@
+class Intern:
+    def __init__(self, name, domain):
+        self.name = name
+        self.domain = domain
+        self.tasks = []
+        self.completed = []
+        self.feedback = []
+
+    def assign_task(self, task):
+        self.tasks.append(task)
+        print(f"Task '{task}' assigned to {self.name}")
+
+    def complete_task(self, task):
+        if task in self.tasks:
+            self.tasks.remove(task)
+            self.completed.append(task)
+            print(f"{self.name} completed '{task}'")
+        else:
+            print("Task not found!")
+
+    def add_feedback(self, message):
+        self.feedback.append(message)
+
+    def show_dashboard(self):
+        print("\n========== INTERN DASHBOARD ==========")
+        print("Name       :", self.name)
+        print("Domain     :", self.domain)
+        print("Pending    :", self.tasks)
+        print("Completed  :", self.completed)
+        print("Feedback   :", self.feedback)
+
+        total = len(self.tasks) + len(self.completed)
+        if total > 0:
+            progress = (len(self.completed) / total) * 100
+        else:
+            progress = 0
+
+        print("Progress   : {:.2f}%".format(progress))
+        print("======================================")
+
+    def send_notification(self):
+        if self.tasks:
+            print("\nNotification:")
+            print("Reminder! Complete the following tasks:")
+            for task in self.tasks:
+                print("-", task)
+        else:
+            print("\nCongratulations! All tasks completed.")
+            print("You are eligible for internship certification.")
+
+
+# ---------------- MAIN PROGRAM ----------------
+
+intern = Intern("Sanjay", "Data Science")
+
+intern.assign_task("Business Model Analysis")
+intern.assign_task("Dashboard Design")
+intern.assign_task("Final Report")
+
+intern.complete_task("Business Model Analysis")
+
+intern.add_feedback("Excellent analysis. Improve report formatting.")
+
+intern.show_dashboard()
+
+intern.send_notification()
